@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <title>Form Validation</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Form Validation</h1>
+        <form id="myForm">
+            <label for="name">Nama Pelanggan:</label>
+            <input type="text" id="name" name="name" required maxlength="30">
+            <br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+
+            <label for="departure-time">Jam Keberangkatan:</label>
+            <input type="text" id="departure-time" name="departure-time" required>
+            <br>
+
+            <label for="destination">Tujuan Keberangkatan:</label>
+            <input type="text" id="destination" name="destination" required>
+            <br>
+
+            <label for="ticket-quantity">Jumlah Tiket:</label>
+            <input type="number" id="ticket-quantity" name="ticket-quantity" required min="1" max="10">
+            <br>
+
+            <button type="button" onclick="validateForm()">Submit</button>
+        </form>
+
+        <div id="result" class="hidden"></div>
+    </div>
+    <script>function validateForm() {
+        const form = document.getElementById("myForm");
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const departureTimeInput = document.getElementById("departure-time");
+        const destinationInput = document.getElementById("destination");
+        const ticketQuantityInput = document.getElementById("ticket-quantity");
+        const resultDiv = document.getElementById("result");
+    
+        // Reset error styles
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => input.classList.remove("error"));
+    
+        // Validate Name (required, max length 30)
+        if (!nameInput.value || nameInput.value.length > 30) {
+            nameInput.classList.add("error");
+        }
+    
+        // Validate Email (required, email format)
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailInput.value || !emailRegex.test(emailInput.value)) {
+            emailInput.classList.add("error");
+        }
+    
+        // Validate Departure Time (required, time format)
+        const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+        if (!departureTimeInput.value || !timeRegex.test(departureTimeInput.value)) {
+            departureTimeInput.classList.add("error");
+        }
+    
+        // Validate Destination (required)
+        if (!destinationInput.value) {
+            destinationInput.classList.add("error");
+        }
+    
+        // Validate Ticket Quantity (required, integer between 1 and 10)
+        const quantity = parseInt(ticketQuantityInput.value);
+        if (!Number.isInteger(quantity) || quantity < 1 || quantity > 10) {
+            ticketQuantityInput.classList.add("error");
+        }
+    
+        // Display result if the form is valid
+        if (!form.querySelector(".error")) {
+            const resultMessage = `Nama Pelanggan: ${nameInput.value}<br>
+                                   Email: ${emailInput.value}<br>
+                                   Jam Keberangkatan: ${departureTimeInput.value}<br>
+                                   Tujuan Keberangkatan: ${destinationInput.value}<br>
+                                   Jumlah Tiket: ${quantity}`;
+    
+            resultDiv.innerHTML = resultMessage;
+            resultDiv.classList.remove("hidden");
+        }
+    }</script>
+</body>
+</html>

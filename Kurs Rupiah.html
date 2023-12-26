@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Konversi Mata Uang</title>
+</head>
+<body>
+    <div class="converter-container">
+        <h2>Konversi Mata Uang</h2>
+        <label for="currency">Pilih Mata Uang:</label>
+        <select id="currency" onchange="convertCurrency()">
+            <option value="usd">Dollar US</option>
+            <option value="sgd">Dollar Singapore</option>
+            <option value="myr">Ringgit Malaysia</option>
+            <option value="jpy">Yen Jepang</option>
+            <option value="eur">Euro</option>
+        </select>
+        <label for="amount">Masukkan Jumlah Mata Uang Asing:</label>
+        <input type="number" id="amount" oninput="convertCurrency()">
+        <label for="result">Hasil Konversi (Rupiah):</label>
+        <input type="text" id="result" readonly>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+ 
